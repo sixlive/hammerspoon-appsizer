@@ -29,13 +29,20 @@ local function resizeAppWindow(win)
 
             appSizeIndex[appName] = (appSizeIndex[appName] % #sizes) + 1
         else
+            local frame = win:frame()
             print("No sizes found for " .. appName)
+            print(appName .. " frame is: " .. frame.w .. "x" .. frame.h)
         end
     end
 end
 
 function module.setAppSizeMap(map)
     appSizeMap = map
+
+    hs.hotkey.bind({}, "F14", function()
+        local win = hs.window.focusedWindow()
+        resizeAppWindow(win)
+    end)
 end
 
 function module.start()
@@ -61,10 +68,6 @@ function module.start()
         end
     end)
     AppWatcher:start()
-    hs.hotkey.bind({}, "F14", function()
-        local win = hs.window.focusedWindow()
-        resizeAppWindow(win)
-    end)
 end
 
 function module.stop()

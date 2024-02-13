@@ -21,9 +21,14 @@ AppSizer:setAppSizeMap({
 AppSizer:start()
 ```
 
+> [!TIP]
+> Keep an eye on the Hammerspoon logs to see your window sizes! It logs the size it is scaling from and to.
+
 You can add as many applications as you want to the `AppSizer:setAppSizeMap(map)` function. The map should be a table where the keys are the application names and the values are tables of dimensions (with `w` for width and `h` for height).
 
 The applications will be automatically resized to the specified dimensions the first time they are focused after Hammerspoon starts, or when the F14 key is pressed.
+
+To disable the auto resize on first focus omit calling `AppSizer:start()`.
 
 To stop the AppSizer, call the `stop()` function:
 
