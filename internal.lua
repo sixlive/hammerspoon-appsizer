@@ -46,6 +46,17 @@ function module.setAppSizeMap(map)
 end
 
 function module.start()
+    -- Get all running apps and track them off the rip so we only trigger a re-size on launch
+    local runningApps = hs.application.runningApplications()
+
+    for _, app in ipairs(runningApps) do
+        if appSizeMap[app:name()] then
+            print(app:name(), ' running...')
+            AppsFocused[app:name()] = true
+        end
+    end
+
+    -- Setup the watcher
     AppWatcher = hs.application.watcher.new(function(appName, eventType, appObject)
         if not appSizeMap[appName] then
             return
