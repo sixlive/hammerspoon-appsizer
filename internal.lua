@@ -4,7 +4,7 @@ local appSizeIndex = {}
 local AppsFocused = {}
 local AppWatcher
 
-local function resizeAppWindow(win)
+function module.resizeAppWindow(win)
     if win then
         local appName = win:application():name()
         local sizes = appSizeMap[appName]
@@ -41,7 +41,7 @@ function module.setAppSizeMap(map)
 
     hs.hotkey.bind({}, "F14", function()
         local win = hs.window.focusedWindow()
-        resizeAppWindow(win)
+        module.resizeAppWindow(win)
     end)
 end
 
@@ -71,7 +71,7 @@ function module.start()
                 hs.timer.doAfter(1, function()
                     local win = appObject:focusedWindow()
                     if win then
-                        resizeAppWindow(win)
+                        module.resizeAppWindow(win)
                         AppsFocused[appName] = true
                     end
                 end)
